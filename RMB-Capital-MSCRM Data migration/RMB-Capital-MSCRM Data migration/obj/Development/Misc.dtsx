@@ -1,0 +1,1054 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/19/2025 5:01:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CAMTC"
+  DTS:CreatorName="CAMTC\mma"
+  DTS:DTSID="{571086BF-836D-4075-B7FA-1A11A54688BB}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.150"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Misc"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{39ACBCB9-534A-46C2-904E-928FE2A98CB3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Delete"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{f8f40039-1902-46bb-9caa-77918bd73db4}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Delete\Clear Data"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6e317bbc-b329-43fb-8df7-207b2d6b4c02}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Clear Data"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F4C70C94-C9A7-4E73-ACED-D97EDC0D0949}"
+              SQLTask:SqlStatementSource="delete Error_Log where taskname='Delete'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Delete\Data Flow Task"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{6d89515c-0136-4a52-9002-f20d6b6e4544}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Data Flow Task"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Delete\Data Flow Task\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Delete\Data Flow Task\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Delete\Data Flow Task\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[TaskName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="6"
+                          lineageId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[TaskName]"
+                          name="TaskName"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">"delete"</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">"delete"</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Delete\Data Flow Task\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete\Data Flow Task\Error_Log"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Error_Log"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Error_Log]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete\Data Flow Task\Error_Log.Connections[OleDbConnection]"
+                      connectionManagerID="{F4C70C94-C9A7-4E73-ACED-D97EDC0D0949}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SQL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].Columns[TaskName]"
+                          cachedDataType="wstr"
+                          cachedLength="6"
+                          cachedName="TaskName"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[TaskName]"
+                          lineageId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Output].Columns[TaskName]" />
+                        <inputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].Columns[ErrorCode]"
+                          cachedDataType="i4"
+                          cachedName="ErrorCode"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[ErrorCode]"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorCode]" />
+                        <inputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].Columns[ErrorColumn]"
+                          cachedDataType="i4"
+                          cachedName="ErrorColumn"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[ErrorColumn]"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorColumn]" />
+                        <inputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].Columns[ErrorMessage]"
+                          cachedDataType="wstr"
+                          cachedLength="2048"
+                          cachedName="ErrorMessage"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[ErrorMessage]"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorMessage]" />
+                        <inputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].Columns[Legacy_Id__c]"
+                          cachedDataType="guid"
+                          cachedName="Legacy_Id__c"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[Id1]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Legacy_Id__c]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[Id1]"
+                          dataType="wstr"
+                          length="255"
+                          name="Id1" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[Id2]"
+                          dataType="wstr"
+                          length="255"
+                          name="Id2" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[TaskName]"
+                          dataType="wstr"
+                          length="255"
+                          name="TaskName" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[ErrorCode]"
+                          dataType="i4"
+                          name="ErrorCode" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[ErrorColumn]"
+                          dataType="i4"
+                          name="ErrorColumn" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input].ExternalColumns[ErrorMessage]"
+                          dataType="wstr"
+                          length="2048"
+                          name="ErrorMessage" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete\Data Flow Task\Error_Log.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\Error_Log.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Error_Log.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\Error_Log.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete\Data Flow Task\Salesforce Destination"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright (c) 2023 KingswaySoft Inc."
+                  description="Populate data into Salesforce."
+                  name="Salesforce Destination"
+                  usesDispositions="true"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how data is written to Salesforce."
+                      expressionType="Notify"
+                      name="ActionType"
+                      typeConverter="KingswaySoft.IntegrationToolkit.Salesforce.SalesforceDestinationActionType">4</property>
+                    <property
+                      dataType="System.String"
+                      description="Destination object to write data."
+                      expressionType="Notify"
+                      name="DestinationObject">Task</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Batch size"
+                      expressionType="Notify"
+                      name="BatchSize">200</property>
+                    <property
+                      dataType="System.String"
+                      description="Specify the External ID field to be used for Salesforce upsert action."
+                      expressionType="Notify"
+                      name="UpsertExternalIdField"></property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specify whether you wan to use Salesforce Bulk API to load data."
+                      expressionType="Notify"
+                      name="UseBulkApi">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Bulk data format to use when Salesforce Bulk API is used."
+                      expressionType="Notify"
+                      name="BulkDataFormat"
+                      typeConverter="KingswaySoft.IntegrationToolkit.Common.DescriptiveEnumTypeConverter`1[[KingswaySoft.IntegrationToolkit.Salesforce.BulkDataFormat">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Concurrency mode when Salesforce Bulk API is used."
+                      expressionType="Notify"
+                      name="ConcurrencyMode"
+                      typeConverter="KingswaySoft.IntegrationToolkit.Salesforce.ConcurrencyMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specify whether to remove those invalid characters before writing to Salesforce."
+                      expressionType="Notify"
+                      name="RemoveInvalidCharacters">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When true, datetime values should be sent to Salesforce in UTC format. The default is false, in which case, datetime values will be posted to Salesforce in local system time. "
+                      expressionType="Notify"
+                      name="SendDateTimeInUtcFormat">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specify whether to ignore those NULL-valued fields."
+                      expressionType="Notify"
+                      name="IgnoreNullValuedFields">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specify whether to send empty strings as NULLs when writing to Salesforce. When disabled, empty strings will not be converted to NULL value, therefore will not be posted to Salesforce. This can be helpful in the case that you want to retain original values in Salesforce when the incoming value is empty (not NULL though). "
+                      expressionType="Notify"
+                      name="SendEmptyStringsAsNullValues">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specify whether to write batch files withUTF-8 encoding when using Bulk API to write to Salesforce."
+                      expressionType="Notify"
+                      name="WriteBatchFilesWithUtf8Encoding">false</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.Salesforce.SalesforceDestinationComponent</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete\Data Flow Task\Salesforce Destination.Connections[Salesforce]"
+                      connectionManagerID="{A7BABFFF-EF41-4DFE-914A-E08CF824C803}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Salesforce]"
+                      description="Salesforce Connection"
+                      name="Salesforce" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="RedirectRow"
+                      hasSideEffects="true"
+                      name="Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input].Columns[SalesforceRecordId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="SalesforceRecordId"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input].ExternalColumns[Id]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[SalesforceRecordId]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              name="FieldType">id</property>
+                            <property
+                              dataType="System.String"
+                              isArray="true"
+                              name="LookupTypes">
+                              <arrayElements
+                                arrayElementCount="1">
+                                <arrayElement
+                                  dataType="System.String">Task</arrayElement>
+                              </arrayElements>
+                            </property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Error Output"
+                      synchronousInputId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorMessage]"
+                          dataType="wstr"
+                          length="2048"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output].Columns[ErrorMessage]"
+                          name="ErrorMessage" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Default Output]"
+                      exclusionGroup="1"
+                      name="Default Output"
+                      synchronousInputId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Default Output].Columns[SalesforceRecordId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Default Output].Columns[SalesforceRecordId]"
+                          name="SalesforceRecordId" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Default Output].Columns[IsNew]"
+                          dataType="bool"
+                          lineageId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Default Output].Columns[IsNew]"
+                          name="IsNew" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Delete\Data Flow Task\vw_contacts"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="vw_contacts"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from succ_Interactions</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Delete\Data Flow Task\vw_contacts.Connections[OleDbConnection]"
+                      connectionManagerID="{F4C70C94-C9A7-4E73-ACED-D97EDC0D0949}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SQL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Legacy_Id__c]"
+                          dataType="guid"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Legacy_Id__c]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Legacy_Id__c]"
+                          name="Legacy_Id__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[AccountId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[AccountId]"
+                          length="18"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[AccountId]"
+                          name="AccountId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[CreatedDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[CreatedDate]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[CreatedDate]"
+                          name="CreatedDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[xcreatedbyname]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[xcreatedbyname]"
+                          length="200"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[xcreatedbyname]"
+                          name="xcreatedbyname"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[CreatedById]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[CreatedById]"
+                          length="255"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[CreatedById]"
+                          name="CreatedById"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Legacy_Owner_Name__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Legacy_Owner_Name__c]"
+                          length="200"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Legacy_Owner_Name__c]"
+                          name="Legacy_Owner_Name__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Description]"
+                          dataType="nText"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Description]"
+                          name="Description"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                          length="400"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Name]"
+                          name="Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[InteractionType]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[InteractionType]"
+                          length="255"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[InteractionType]"
+                          name="InteractionType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[StartTime]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[StartTime]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[StartTime]"
+                          name="StartTime"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Endtime]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Endtime]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[Endtime]"
+                          name="Endtime"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[TaskName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[TaskName]"
+                          length="15"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[TaskName]"
+                          name="TaskName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[SalesforceRecordId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[SalesforceRecordId]"
+                          length="18"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[SalesforceRecordId]"
+                          name="SalesforceRecordId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[IsNew]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[IsNew]"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].Columns[IsNew]"
+                          name="IsNew"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Legacy_Id__c]"
+                          dataType="guid"
+                          name="Legacy_Id__c" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[AccountId]"
+                          dataType="wstr"
+                          length="18"
+                          name="AccountId" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[CreatedDate]"
+                          dataType="dbTimeStamp"
+                          name="CreatedDate" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[xcreatedbyname]"
+                          dataType="wstr"
+                          length="200"
+                          name="xcreatedbyname" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[CreatedById]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="CreatedById" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Legacy_Owner_Name__c]"
+                          dataType="wstr"
+                          length="200"
+                          name="Legacy_Owner_Name__c" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                          dataType="nText"
+                          name="Description" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                          dataType="wstr"
+                          length="400"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[InteractionType]"
+                          dataType="wstr"
+                          length="255"
+                          name="InteractionType" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[StartTime]"
+                          dataType="dbTimeStamp"
+                          name="StartTime" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[Endtime]"
+                          dataType="dbTimeStamp"
+                          name="Endtime" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[TaskName]"
+                          dataType="wstr"
+                          length="15"
+                          name="TaskName" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[SalesforceRecordId]"
+                          dataType="wstr"
+                          length="18"
+                          name="SalesforceRecordId" />
+                        <externalMetadataColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output].ExternalColumns[IsNew]"
+                          dataType="bool"
+                          name="IsNew" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Legacy_Id__c]"
+                          dataType="guid"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Legacy_Id__c]"
+                          name="Legacy_Id__c" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[CreatedDate]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[CreatedDate]"
+                          name="CreatedDate" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[xcreatedbyname]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[xcreatedbyname]"
+                          name="xcreatedbyname" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[CreatedById]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[CreatedById]"
+                          name="CreatedById" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Legacy_Owner_Name__c]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Legacy_Owner_Name__c]"
+                          name="Legacy_Owner_Name__c" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Description]"
+                          dataType="nText"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Description]"
+                          name="Description" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Name]"
+                          dataType="wstr"
+                          length="400"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Name]"
+                          name="Name" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[InteractionType]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[InteractionType]"
+                          name="InteractionType" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[StartTime]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[StartTime]"
+                          name="StartTime" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Endtime]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[Endtime]"
+                          name="Endtime" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[AccountId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[AccountId]"
+                          name="AccountId" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[TaskName]"
+                          dataType="wstr"
+                          length="15"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[TaskName]"
+                          name="TaskName" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[SalesforceRecordId]"
+                          dataType="wstr"
+                          length="18"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[SalesforceRecordId]"
+                          name="SalesforceRecordId" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[IsNew]"
+                          dataType="bool"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[IsNew]"
+                          name="IsNew" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Delete\Data Flow Task.Paths[Derived Column Output]"
+                  endId="Package\Delete\Data Flow Task\Salesforce Destination.Inputs[Input]"
+                  name="Derived Column Output"
+                  startId="Package\Delete\Data Flow Task\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Delete\Data Flow Task.Paths[Error Output]"
+                  endId="Package\Delete\Data Flow Task\Error_Log.Inputs[OLE DB Destination Input]"
+                  name="Error Output"
+                  startId="Package\Delete\Data Flow Task\Salesforce Destination.Outputs[Error Output]" />
+                <path
+                  refId="Package\Delete\Data Flow Task.Paths[OLE DB Source Output]"
+                  endId="Package\Delete\Data Flow Task\Derived Column.Inputs[Derived Column Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Delete\Data Flow Task\vw_contacts.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Delete.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{8effa227-afc5-4f72-ba84-cb97ecf4e7df}"
+          DTS:From="Package\Delete\Clear Data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Delete\Data Flow Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="130.666666666667,42.6666666666667"
+          Id="Package\Delete\Clear Data"
+          TopLeft="43.6249981280417,16.087721809566" />
+        <NodeLayout
+          Size="153.333333333334,42.6666666666667"
+          Id="Package\Delete\Data Flow Task"
+          TopLeft="217.999995529651,23.614037740704" />
+        <EdgeLayout
+          Id="Package\Delete.PrecedenceConstraints[Constraint]"
+          TopLeft="174.291664794708,41.1842131084683">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43.7083307349426,0"
+              Start="0,0"
+              End="36.2083307349426,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="36.2083307349426,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="410,121.333333333334"
+          Size="410,164"
+          Id="Package\Delete"
+          TopLeft="309.99999538064,189.526319356836" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Delete\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="126.666666666667,42.6666666666667"
+          Id="Package\Delete\Data Flow Task\Error_Log"
+          TopLeft="433.749993536622,308.578953176654" />
+        <NodeLayout
+          Size="138,42.6666666666667"
+          Id="Package\Delete\Data Flow Task\vw_contacts"
+          TopLeft="313.749995324761,36.2631585773008" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\Delete\Data Flow Task\Derived Column"
+          TopLeft="300.624995520339,115.631581123846" />
+        <NodeLayout
+          Size="186.666666666667,42.6666666666667"
+          Id="Package\Delete\Data Flow Task\Salesforce Destination"
+          TopLeft="279.999995827675,186.771933327531" />
+        <EdgeLayout
+          Id="Package\Delete\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="380.68749542255,78.9298252439675">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.7017558798785"
+              Start="0,0"
+              End="0,29.2017558798785">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.2017558798785" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete\Data Flow Task.Paths[Error Output]"
+          TopLeft="373.333329161008,229.438599994198">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="123.749997708947,79.1403531824564"
+              Start="0,0"
+              End="123.749997708947,71.6403531824564">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5701765912282" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.5701765912282"
+                    Point2="0,39.5701765912282"
+                    Point3="4,39.5701765912282" />
+                  <mssgle:LineSegment
+                    End="119.749997708947,39.5701765912282" />
+                  <mssgle:CubicBezierSegment
+                    Point1="119.749997708947,39.5701765912282"
+                    Point2="123.749997708947,39.5701765912282"
+                    Point3="123.749997708947,43.5701765912282" />
+                  <mssgle:LineSegment
+                    End="123.749997708947,71.6403531824564" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.5386121357235,44.5701765912282,56.6727734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Delete\Data Flow Task.Paths[Derived Column Output]"
+          TopLeft="375.979162340674,158.298247790513">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.4736855370183"
+              Start="0,0"
+              End="0,20.9736855370183">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.9736855370183" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Delete\Data Flow Task\Error_Log">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Delete\Data Flow Task\vw_contacts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
