@@ -1,17 +1,17 @@
 use RMB_Staging
 go
 
-select * from Backup_CuriCapital.dbo.stringmap where [value] like '%accre%'
+select * from Curi_Backup.dbo.stringmap where [value] like '%accre%'
 
-select objecttypecode, attributename, attributevalue, [value] from Backup_CuriCapital.dbo.stringmap where attributename='tamc_contacttype'
+select objecttypecode, attributename, attributevalue, [value] from Curi_Backup.dbo.stringmap where attributename='tamc_contacttype'
 
-select objecttypecode, attributename, attributevalue, [value] from Backup_CuriCapital.dbo.stringmap where attributename='tamc_investorqualification'
+select objecttypecode, attributename, attributevalue, [value] from Curi_Backup.dbo.stringmap where attributename='tamc_investorqualification'
 
-select objecttypecode,attributename, attributevalue, [value] from Backup_CuriCapital.dbo.stringmap where attributename='tam_preferredphone'
+select objecttypecode,attributename, attributevalue, [value] from Curi_Backup.dbo.stringmap where attributename='tam_preferredphone'
 
-select objecttypecode, attributename, attributevalue, [value] from Backup_CuriCapital.dbo.stringmap where attributename='familystatuscode'
+select objecttypecode, attributename, attributevalue, [value] from Curi_Backup.dbo.stringmap where attributename='familystatuscode'
 
-select * from Backup_CuriCapital.dbo.account where accountid='8FFB5881-04DE-ED11-A7C7-000D3A34140D'
+select * from Curi_Backup.dbo.account where accountid='8FFB5881-04DE-ED11-A7C7-000D3A34140D'
 
 
 
@@ -143,20 +143,20 @@ select rec.tam_currentmailingaddress, rec.tam_currentmailingaddressname, rec.tam
 	, rec.businesstypecode, rec.businesstypecodename
 	, rec.tam_accounttypeid, rec.tam_accounttypeidname
 	, rec.preferredcontactmethodcode, rec.preferredcontactmethodcodename, rec.tam_preferredphone, * 
-	from [Backup_CuriCapital].dbo.account rec
+	from [Curi_Backup].dbo.account rec
 	--where rec.name like '%emplo%'
 	where rec.tam_referredbyid is not null or rec.statuscodename is not null
 
 
-select * from [Backup_CuriCapital].dbo.contact where contactid
-	in (select tam_referredbyid from [Backup_CuriCapital].dbo.account)
+select * from [Curi_Backup].dbo.contact where contactid
+	in (select tam_referredbyid from [Curi_Backup].dbo.account)
 
-select * from [Backup_CuriCapital].dbo.user 
+select * from [Curi_Backup].dbo.user 
 
-select statuscode, count(*) cnt from [Backup_CuriCapital].dbo.account group by statuscode
+select statuscode, count(*) cnt from [Curi_Backup].dbo.account group by statuscode
 
 
-select distinct tam_currentmailingaddress from [Backup_CuriCapital].dbo.account rec
+select distinct tam_currentmailingaddress from [Curi_Backup].dbo.account rec
 
 --Verify cratedby
 select distinct xCreatedByName from vw_Accounts where xCreatedByName is not null and CreatedById ='0055e000006hvhKAAQ' order by xCreatedByName
@@ -184,7 +184,7 @@ select
 	, rec.tam_referredbyid
 	, rec.tam_referredbyidname
 	, rec.tam_referredbyidyominame
-	from Backup_CuriCapital.dbo.account rec
+	from Curi_Backup.dbo.account rec
 	where rec.tam_accounttypeidname in ('Household','Corporate')
 		and rec.tam_referredbyid is not null
 		order by rec.tam_referredbyidyominame
@@ -231,33 +231,33 @@ drop table succ_Contacts
 
 */
 
-select * from Backup_CuriCapital.dbo.contact where contactid='d808bc77-ca3d-ed11-9db0-0022480b4485'
+select * from Curi_Backup.dbo.contact where contactid='d808bc77-ca3d-ed11-9db0-0022480b4485'
 
 select rec.tamc_contacttype, rec.tamc_contacttypename
 	, rec.tamc_investorqualification, rec.tamc_investorqualificationname
 	, rec.company, rec.tam_company,* 
-	from Backup_CuriCapital.dbo.contact rec
+	from Curi_Backup.dbo.contact rec
 	where rec.tamc_contacttypename is not null or rec.tamc_investorqualificationname is not null
 
 
 select distinct rec.tamc_contacttype
 	--, rec.tamc_investorqualification
-	from Backup_CuriCapital.dbo.contact rec
+	from Curi_Backup.dbo.contact rec
 	order by rec.tamc_contacttype
 
 select distinct rec.tamc_investorqualification
 	--, rec.tamc_investorqualification
-	from Backup_CuriCapital.dbo.contact rec
+	from Curi_Backup.dbo.contact rec
 	order by rec.tamc_investorqualification
 
 
-select familystatuscode, count(*) cnt from Backup_CuriCapital.dbo.contact group by familystatuscode order by familystatuscode
+select familystatuscode, count(*) cnt from Curi_Backup.dbo.contact group by familystatuscode order by familystatuscode
 
 --Verify cratedby
 select distinct xCreatedByName from vw_contacts where xCreatedByName is not null and createdbyId is null order by xCreatedByName
 
 --***** Verify Owner
-select distinct xOwnerId from vw_contacts where xOwnerId is not null and OwnerId is null order by xOwnerId
+select distinct Legacy_Owner_Name__c from vw_contacts where Legacy_Owner_Name__c is not null and OwnerId is null order by Legacy_Owner_Name__c
 
 
 --SSIS
@@ -373,6 +373,7 @@ select err.ErrorMessage
 
 
 
+
 /* vw_leads
 
 truncate table [_reImport]
@@ -387,9 +388,9 @@ select * from vw_leads where Legacy_Id__c in (select Legacy_Id__c from [_reImpor
 drop table succ_Leads
 
 */
-select * from Backup_CuriCapital.dbo.[lead] where firstname like '%joann%'
+select * from Curi_Backup.dbo.[lead] where firstname like '%joann%'
 
-select tam_leadstage, count(*) cnt from Backup_CuriCapital.dbo.[lead] group by tam_leadstage order by tam_leadstage
+select tam_leadstage, count(*) cnt from Curi_Backup.dbo.[lead] group by tam_leadstage order by tam_leadstage
 
 
 --Verify cratedby
@@ -440,7 +441,7 @@ drop table succ_Opportunities
 
 */
 
-select tam_opportunitystage, count(*) cnt from Backup_CuriCapital.dbo.opportunity group by tam_opportunitystage order by tam_opportunitystage
+select tam_opportunitystage, count(*) cnt from Curi_Backup.dbo.opportunity group by tam_opportunitystage order by tam_opportunitystage
 
 select rec.opportunityid
 , rec.tam_opportunitystagename
@@ -483,30 +484,36 @@ select err.ErrorMessage
 
 
 
-SELECT activityid, description  INTO Act_Desc FROM Backup_CuriCapital.dbo.activitypointer
+SELECT activityid, description  INTO Act_Desc FROM Curi_Backup.dbo.activitypointer
 
 /* vw_Tasks
 
 truncate table Act_Desc
-insert into Act_Desc (activityid, description) select activityid, description FROM Backup_CuriCapital.dbo.activitypointer
+insert into Act_Desc (activityid, description) select activityid, description FROM Curi_Backup.dbo.activitypointer
 
 update Act_Desc set [Desc]=dbo.fnStripTags(Description)
 
 truncate table [_reImport]
 insert into [dbo].[_reImport] (Legacy_Id__c, ErrorMessage) select Id1, ErrorMessage from Error_Log where taskname='vw_Tasks'
-	and ErrorMessage not like '%Lead or Person Account%'
+	
 select * from [_reImport]
 
 delete Error_Log where taskname='vw_Tasks'
 
-select * from vw_Tasks where Legacy_Id__c in (select Legacy_Id__c from [_reImport] )
+select top 10 * from vw_Tasks where Legacy_Id__c in (select Legacy_Id__c from [_reImport] )
 
 
 drop table succ_Tasks
 
 */
+select top 10 sf.id, rec.* from vw_Tasks rec
+	left join sf_tasks sf on sf.Legacy_Id__c=cast(rec.Legacy_Id__c as nvarchar(60))
+	where rec.Legacy_Id__c in (select Legacy_Id__c from [_reImport] )
+
+
+
 select count(*)
-	from Backup_CuriCapital.dbo.activitypointer rec
+	from Curi_Backup.dbo.activitypointer rec
 
 select top 100
 	rec.actualend
@@ -515,34 +522,34 @@ select top 100
 	, rec.scheduledend
 	, rec.owneridname
 	, * 
-	from Backup_CuriCapital.dbo.activitypointer rec
+	from Curi_Backup.dbo.activitypointer rec
 	where rec.actualstart is null and rec.actualend is null
 
 select distinct regardingobjecttypecode 
-	from Backup_CuriCapital.dbo.activitypointer rec order by regardingobjecttypecode
+	from Curi_Backup.dbo.activitypointer rec order by regardingobjecttypecode
 
 select distinct statecodename 
-	from Backup_CuriCapital.dbo.activitypointer rec order by statecodename
+	from Curi_Backup.dbo.activitypointer rec order by statecodename
 
 select distinct activitytypecodename 
-	from Backup_CuriCapital.dbo.activitypointer rec order by activitytypecodename
+	from Curi_Backup.dbo.activitypointer rec order by activitytypecodename
 
 select rec.systemuserid, rec.firstname, rec.lastname, * 
-	from Backup_CuriCapital.dbo.systemuser rec
-	where systemuserid in (select regardingobjectownerid from Backup_CuriCapital.dbo.post )
+	from Curi_Backup.dbo.systemuser rec
+	where systemuserid in (select regardingobjectownerid from Curi_Backup.dbo.post )
 
 select count(*)
-	from Backup_CuriCapital.dbo.post rec
+	from Curi_Backup.dbo.post rec
 select rec.regardingobjectid
 	, rec.regardingobjectidname
 	, rec.postregardingid
 	, * 
-	from Backup_CuriCapital.dbo.post rec
+	from Curi_Backup.dbo.post rec
 
 
 
 select distinct regardingobjecttypecode 
-	from Backup_CuriCapital.dbo.post rec order by regardingobjecttypecode
+	from Curi_Backup.dbo.post rec order by regardingobjecttypecode
 
 
 
@@ -558,21 +565,27 @@ select count(*)
 	where TaskName='vw_Tasks'
 	and err.ErrorMessage not like '%createddate%'
 
-select err.ErrorMessage, len(description)
+select  top 100
+	err.ErrorMessage
 	, rec.* 
 	from Error_Log err
 	left join vw_Tasks rec on rec.Legacy_Id__c = err.Id1
 	where TaskName='vw_Tasks'
-	--and err.ErrorMessage not like '%Lead or Person Account%'
+	--and err.ErrorMessage not like '%Unable to create%'
 	order by err.id1
 
 
 
+An error returned from Salesforce for the service call: Unable to create/update fields: CreatedById, CreatedDate. 
+Please check the security settings of this field and verify that it is read/write for your profile or permission set. 
+(StatusCode: INVALID_FIELD_FOR_INSERT_UPDATE; Fields: CreatedById, CreatedDate)
+
+An error returned from Salesforce for the service call: duplicate value found: Legacy_Id__c duplicates value on record with id: 00T7y00000xCOxrEAG (StatusCode: DUPLICATE_VALUE)
 
 
+select * from sf_tasks where len(legacy_id__c) > 20 -- 37936
 
-
-
+select * from Succ_Tasks
 
 /* vw_Interactions
 
@@ -591,7 +604,7 @@ drop table succ_Interactions
 
 */
 select count(*)
-	from Backup_CuriCapital.dbo.activitypointer rec
+	from Curi_Backup.dbo.activitypointer rec
 
 select * from vw_interactions where leadId is not null
 
@@ -610,11 +623,98 @@ select err.ErrorMessage, len(description)
 	--and err.ErrorMessage not like '%Lead or Person Account%'
 	order by err.id1
 
-An error returned from Salesforce for the service call: We can't save this record because the “Update Meeting Time on Account Record” 
-process failed. Give your Salesforce admin these details. This error occurred when the flow tried to update records:
-DUPLICATE_VALUE: Maximum number of duplicate updates in one batch (12 allowed). Attempt to update Id more than once in this Api call: 
-001bf00000BSQq4. You can look up ExceptionCode values in the SOAP API Developer Guide. Error ID: 1619473565-114595 (58182527)ook up 
-ExceptionCode values in the SOAP API Developer Guide. Error ID: 1619473565-114595 (58182527) (StatusCode: CANNOT_EXECUTE_FLOW_TRIGGER)
+
+select * from succ_Interactions
+
+
+
+
+
+
+/* vw_Interaction_Summary
+
+
+truncate table [_reImport]
+insert into [dbo].[_reImport] (Legacy_Id__c, ErrorMessage) select Id1, ErrorMessage from Error_Log where taskname='vw_Interaction_Summary'
+	and ErrorMessage not like '%Lead or Person Account%'
+select * from [_reImport]
+
+delete Error_Log where taskname='vw_Interaction_Summary'
+
+select * from vw_Interaction_Summary where Legacy_Id__c in (select Legacy_Id__c from [_reImport] )
+
+
+drop table succ_Interaction_Summary
+
+*/
+select count(*)
+	from Curi_Backup.dbo.activitypointer rec
+
+select * from vw_Interaction_Summary where leadId is not null
+
+--SSIS
+select * 
+	from vw_Interaction_Summary
+
+select count(*) from vw_Interaction_Summary
+
+
+select err.ErrorMessage, len(description)
+	, rec.* 
+	from Error_Log err
+	left join vw_Interaction_Summary rec on rec.Legacy_Id__c = err.Id1
+	where TaskName='vw_Interaction_Summary'
+	--and err.ErrorMessage not like '%Lead or Person Account%'
+	order by err.id1
+
+
+select * from succ_Interaction_Summary
+
+
+
+
+
+
+
+/* vw_Interaction_Attendee
+
+
+truncate table [_reImport]
+insert into [dbo].[_reImport] (Legacy_Id__c, ErrorMessage) select Id1, ErrorMessage from Error_Log where taskname='vw_Interaction_Attendee'
+	and ErrorMessage not like '%Lead or Person Account%'
+select * from [_reImport]
+
+delete Error_Log where taskname='vw_Interaction_Attendee'
+
+select * from vw_Interaction_Attendee where Legacy_Id__c in (select Legacy_Id__c from [_reImport] )
+
+
+drop table succ_Interaction_Attendee
+
+*/
+select count(*)
+	from Curi_Backup.dbo.activitypointer rec
+
+select * from vw_Interaction_Attendee 
+
+--SSIS
+select * 
+	from vw_Interaction_Attendee
+
+select count(*) from vw_Interaction_Attendee
+
+
+select err.ErrorMessage
+	, rec.* 
+	from Error_Log err
+	left join vw_Interaction_Attendee rec on rec.Legacy_Id__c = err.Id1
+	where TaskName='vw_Interaction_Attendee'
+	--and err.ErrorMessage not like '%Lead or Person Account%'
+	order by err.id1
+
+
+select * from succ_Interaction_Attendee
+
 
 
 
@@ -644,8 +744,8 @@ select
 	, ac.activityid
 	, ac.regardingobjectid
 	, ac.regardingobjectidname
-	, * from [Backup_CuriCapital].dbo.post rec
-	left join [Backup_CuriCapital].dbo.activitypointer ac on ac.activityid=rec.regardingobjectid
+	, * from [Curi_Backup].dbo.post rec
+	left join [Curi_Backup].dbo.activitypointer ac on ac.activityid=rec.regardingobjectid
 	where rec.RegardingObjectTypeCode<>'lead'
 	and ac.activityid is null
 
@@ -653,22 +753,22 @@ select
 
 
 select 
-	 * from [Backup_CuriCapital].dbo.postrole rec
+	 * from [Curi_Backup].dbo.postrole rec
 	 where rec.postid='6BCB66D0-B427-ED11-9DB1-000D3A3031F9'
 
 
 select 
-	 * from [Backup_CuriCapital].dbo.postregarding rec
+	 * from [Curi_Backup].dbo.postregarding rec
 	 where rec.postregardingid='1D8949B6-9228-ED11-9DB1-000D3A30EBC3'
 
 
-select * from Backup_CuriCapital.dbo.account where 
+select * from Curi_Backup.dbo.account where 
 	accountid in ('F8C808BC-5C22-ED11-B83E-000D3A37FE21','049303F1-07BC-EC11-983F-000D3A5CA6A8','4CA6B7A2-ADDA-4259-9D0C-CF3AB857157E')
-select * from Backup_CuriCapital.dbo.contact where 
+select * from Curi_Backup.dbo.contact where 
 	contactid in ('F8C808BC-5C22-ED11-B83E-000D3A37FE21','049303F1-07BC-EC11-983F-000D3A5CA6A8','4CA6B7A2-ADDA-4259-9D0C-CF3AB857157E')
-select * from Backup_CuriCapital.dbo.opportunity where 
+select * from Curi_Backup.dbo.opportunity where 
 	opportunityid in ('F8C808BC-5C22-ED11-B83E-000D3A37FE21','049303F1-07BC-EC11-983F-000D3A5CA6A8','4CA6B7A2-ADDA-4259-9D0C-CF3AB857157E')
-select * from Backup_CuriCapital.dbo.lead where 
+select * from Curi_Backup.dbo.lead where 
 	leadid in ('F8C808BC-5C22-ED11-B83E-000D3A37FE21','049303F1-07BC-EC11-983F-000D3A5CA6A8','4CA6B7A2-ADDA-4259-9D0C-CF3AB857157E')
 
 

@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Misc"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{39ACBCB9-534A-46C2-904E-928FE2A98CB3}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{C817ADE5-07C6-4D5B-8BFA-4659BC372536}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -36,7 +36,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="Clear Data"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -872,6 +872,976 @@
           DTS:To="Package\Delete\Data Flow Task" />
       </DTS:PrecedenceConstraints>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F71F1E88-43EC-4E02-8341-D8C4D512067A}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Clear Data"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{cd511035-2999-4ef1-accd-d90ffa63f06c}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Clear Data"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F4C70C94-C9A7-4E73-ACED-D97EDC0D0949}"
+              SQLTask:SqlStatementSource="truncate table sf_tasks" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Data Flow Task"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{db7830b2-7962-4dac-abbd-7650238d8276}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Data Flow Task"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Data Flow Task\Salesforce Source"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright (c) 2023 KingswaySoft Inc."
+                  description="Extract data from Salesforce."
+                  name="Salesforce Source"
+                  usesDispositions="true">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of source data from Salesforce"
+                      expressionType="Notify"
+                      name="SourceType"
+                      typeConverter="KingswaySoft.IntegrationToolkit.Salesforce.SalesforceSourceType">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Salesforce object to retrieve data from."
+                      expressionType="Notify"
+                      name="SourceObject">Task</property>
+                    <property
+                      dataType="System.String"
+                      description="Salesforce object query statement."
+                      expressionType="Notify"
+                      name="ObjectQuery"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the batch size of the query."
+                      expressionType="Notify"
+                      name="BatchSize">1000</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether deleted or archived records should be returned."
+                      expressionType="Notify"
+                      name="IncludeDeletedArchived">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specify whether to use Salesforce Bulk API to read data."
+                      expressionType="Notify"
+                      name="UseBulkApi">false</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the output timezone for Salesforce datetime values."
+                      expressionType="Notify"
+                      name="OutputTimezone" />
+                    <property
+                      dataType="System.String"
+                      description="Specify the PK Chunking Header that helps with Bulk API data read performance."
+                      expressionType="Notify"
+                      name="PKChunkingHeader"></property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.Salesforce.SalesforceSourceComponent</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Connections[Salesforce]"
+                      connectionManagerID="{A7BABFFF-EF41-4DFE-914A-E08CF824C803}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Salesforce]"
+                      description="Salesforce Connection"
+                      name="Salesforce" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)]"
+                      name="Primary Output (Salesforce)">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[ActivityDate]"
+                          dataType="dbDate"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[ActivityDate]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[ActivityDate]"
+                          name="ActivityDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CompletedDateTime]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CompletedDateTime]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CompletedDateTime]"
+                          name="CompletedDateTime"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CreatedById]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CreatedById]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CreatedById]"
+                          name="CreatedById"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CreatedDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CreatedDate]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CreatedDate]"
+                          name="CreatedDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Id]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Id]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Id]"
+                          name="Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[LastModifiedById]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[LastModifiedById]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[LastModifiedById]"
+                          name="LastModifiedById"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[LastModifiedDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[LastModifiedDate]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[LastModifiedDate]"
+                          name="LastModifiedDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Legacy_Id__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Legacy_Id__c]"
+                          length="60"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Legacy_Id__c]"
+                          name="Legacy_Id__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Legacy_Owner_Name__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Legacy_Owner_Name__c]"
+                          length="80"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Legacy_Owner_Name__c]"
+                          name="Legacy_Owner_Name__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[OwnerId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[OwnerId]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[OwnerId]"
+                          name="OwnerId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[RecordTypeId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecordTypeId]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[RecordTypeId]"
+                          name="RecordTypeId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Service_Tier__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Service_Tier__c]"
+                          length="1300"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Service_Tier__c]"
+                          name="Service_Tier__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Status]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Status]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Status]"
+                          name="Status"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Subject]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Subject]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Subject]"
+                          name="Subject"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Subtype__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Subtype__c]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Subtype__c]"
+                          name="Subtype__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[SystemModstamp]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[SystemModstamp]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[SystemModstamp]"
+                          name="SystemModstamp"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[TaskSubtype]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[TaskSubtype]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[TaskSubtype]"
+                          name="TaskSubtype"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Type]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Type]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Type]"
+                          name="Type"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Type__c]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Type__c]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Type__c]"
+                          name="Type__c"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[WhatId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[WhatId]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[WhatId]"
+                          name="WhatId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[WhoId]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[WhoId]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[WhoId]"
+                          name="WhoId"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[AccountId]"
+                          dataType="wstr"
+                          length="18"
+                          name="AccountId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Action_Plan_Name__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Action_Plan_Name__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[ActivityDate]"
+                          dataType="dbDate"
+                          name="ActivityDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CallDisposition]"
+                          dataType="wstr"
+                          length="255"
+                          name="CallDisposition" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CallDurationInSeconds]"
+                          dataType="i4"
+                          name="CallDurationInSeconds" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CallObject]"
+                          dataType="wstr"
+                          length="255"
+                          name="CallObject" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CallType]"
+                          dataType="wstr"
+                          length="50"
+                          name="CallType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CASESAFEID__c]"
+                          dataType="wstr"
+                          length="1300"
+                          name="CASESAFEID__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Code__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Code__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CompletedDateTime]"
+                          dataType="dbTimeStamp"
+                          name="CompletedDateTime" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CreatedById]"
+                          dataType="wstr"
+                          length="18"
+                          name="CreatedById" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[CreatedDate]"
+                          dataType="dbTimeStamp"
+                          name="CreatedDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Description]"
+                          dataType="nText"
+                          name="Description" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Description__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Description__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[FinServ__Expectations__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="FinServ__Expectations__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[FinServ__Household__c]"
+                          dataType="wstr"
+                          length="18"
+                          name="FinServ__Household__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[FinServ__NextSteps__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="FinServ__NextSteps__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[FinServ__Objectives__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="FinServ__Objectives__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[FinServ__Regarding__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="FinServ__Regarding__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Instructions_for_next_tasks__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Instructions_for_next_tasks__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Interaction_Summary__c]"
+                          dataType="wstr"
+                          length="18"
+                          name="Interaction_Summary__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[IsArchived]"
+                          dataType="bool"
+                          name="IsArchived" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[IsClosed]"
+                          dataType="bool"
+                          name="IsClosed" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[IsDeleted]"
+                          dataType="bool"
+                          name="IsDeleted" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[IsHighPriority]"
+                          dataType="bool"
+                          name="IsHighPriority" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[IsRecurrence]"
+                          dataType="bool"
+                          name="IsRecurrence" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[IsReminderSet]"
+                          dataType="bool"
+                          name="IsReminderSet" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[LastModifiedById]"
+                          dataType="wstr"
+                          length="18"
+                          name="LastModifiedById" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[LastModifiedDate]"
+                          dataType="dbTimeStamp"
+                          name="LastModifiedDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Legacy_Id__c]"
+                          dataType="wstr"
+                          length="60"
+                          name="Legacy_Id__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Legacy_Owner_Name__c]"
+                          dataType="wstr"
+                          length="80"
+                          name="Legacy_Owner_Name__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Mark_for_Delete__c]"
+                          dataType="bool"
+                          name="Mark_for_Delete__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[OwnerId]"
+                          dataType="wstr"
+                          length="18"
+                          name="OwnerId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Priority]"
+                          dataType="wstr"
+                          length="50"
+                          name="Priority" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceActivityId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecurrenceActivityId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceDayOfMonth]"
+                          dataType="i4"
+                          name="RecurrenceDayOfMonth" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceDayOfWeekMask]"
+                          dataType="i4"
+                          name="RecurrenceDayOfWeekMask" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceEndDateOnly]"
+                          dataType="dbDate"
+                          name="RecurrenceEndDateOnly" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceInstance]"
+                          dataType="wstr"
+                          length="50"
+                          name="RecurrenceInstance" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceInterval]"
+                          dataType="i4"
+                          name="RecurrenceInterval" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceMonthOfYear]"
+                          dataType="wstr"
+                          length="50"
+                          name="RecurrenceMonthOfYear" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceRegeneratedType]"
+                          dataType="wstr"
+                          length="50"
+                          name="RecurrenceRegeneratedType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceStartDateOnly]"
+                          dataType="dbDate"
+                          name="RecurrenceStartDateOnly" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceTimeZoneSidKey]"
+                          dataType="wstr"
+                          length="50"
+                          name="RecurrenceTimeZoneSidKey" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[RecurrenceType]"
+                          dataType="wstr"
+                          length="50"
+                          name="RecurrenceType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[ReminderDateTime]"
+                          dataType="dbTimeStamp"
+                          name="ReminderDateTime" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Service_Tier__c]"
+                          dataType="wstr"
+                          length="1300"
+                          name="Service_Tier__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Status]"
+                          dataType="wstr"
+                          length="255"
+                          name="Status" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Subject]"
+                          dataType="wstr"
+                          length="255"
+                          name="Subject" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Subtype__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Subtype__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[SystemModstamp]"
+                          dataType="dbTimeStamp"
+                          name="SystemModstamp" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[TaskSubtype]"
+                          dataType="wstr"
+                          length="50"
+                          name="TaskSubtype" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[TaskWhoIds]"
+                          dataType="wstr"
+                          length="2000"
+                          name="TaskWhoIds" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Type]"
+                          dataType="wstr"
+                          length="255"
+                          name="Type" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[Type__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Type__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[WhatCount]"
+                          dataType="i4"
+                          name="WhatCount" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[WhatId]"
+                          dataType="wstr"
+                          length="18"
+                          name="WhatId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[WhoCount]"
+                          dataType="i4"
+                          name="WhoCount" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].ExternalColumns[WhoId]"
+                          dataType="wstr"
+                          length="18"
+                          name="WhoId" />
+                      </externalMetadataColumns>
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Data Flow Task\sf_tasks"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="sf_tasks"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[sf_tasks]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Data Flow Task\sf_tasks.Connections[OleDbConnection]"
+                      connectionManagerID="{F4C70C94-C9A7-4E73-ACED-D97EDC0D0949}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SQL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[ActivityDate]"
+                          cachedDataType="dbDate"
+                          cachedName="ActivityDate"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[ActivityDate]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[ActivityDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[CompletedDateTime]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="CompletedDateTime"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[CompletedDateTime]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CompletedDateTime]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[CreatedById]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="CreatedById"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[CreatedById]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CreatedById]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[CreatedDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="CreatedDate"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[CreatedDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Id]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="Id"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Id]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[LastModifiedById]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="LastModifiedById"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedById]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[LastModifiedById]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[LastModifiedDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="LastModifiedDate"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedDate]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[LastModifiedDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Legacy_Id__c]"
+                          cachedDataType="wstr"
+                          cachedLength="60"
+                          cachedName="Legacy_Id__c"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Legacy_Id__c]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Legacy_Id__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Legacy_Owner_Name__c]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="Legacy_Owner_Name__c"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Legacy_Owner_Name__c]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Legacy_Owner_Name__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[OwnerId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="OwnerId"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[OwnerId]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[OwnerId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[RecordTypeId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="RecordTypeId"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[RecordTypeId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Service_Tier__c]"
+                          cachedDataType="wstr"
+                          cachedLength="1300"
+                          cachedName="Service_Tier__c"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Service_Tier__c]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Service_Tier__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Status]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Status"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Status]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Status]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Subject]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Subject"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Subject]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Subject]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Subtype__c]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Subtype__c"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Subtype__c]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Subtype__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[SystemModstamp]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="SystemModstamp"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[SystemModstamp]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[SystemModstamp]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[TaskSubtype]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="TaskSubtype"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[TaskSubtype]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[TaskSubtype]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Type]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Type"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Type]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Type]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[Type__c]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Type__c"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Type__c]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[Type__c]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[WhatId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="WhatId"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[WhatId]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[WhatId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].Columns[WhoId]"
+                          cachedDataType="wstr"
+                          cachedLength="18"
+                          cachedName="WhoId"
+                          externalMetadataColumnId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[WhoId]"
+                          lineageId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)].Columns[WhoId]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[ActivityDate]"
+                          dataType="dbDate"
+                          name="ActivityDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[CompletedDateTime]"
+                          dataType="dbTimeStamp"
+                          name="CompletedDateTime" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[CreatedById]"
+                          dataType="wstr"
+                          length="18"
+                          name="CreatedById" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[CreatedDate]"
+                          dataType="dbTimeStamp"
+                          name="CreatedDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                          dataType="wstr"
+                          length="18"
+                          name="Id" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedById]"
+                          dataType="wstr"
+                          length="18"
+                          name="LastModifiedById" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedDate]"
+                          dataType="dbTimeStamp"
+                          name="LastModifiedDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Legacy_Id__c]"
+                          dataType="wstr"
+                          length="60"
+                          name="Legacy_Id__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Legacy_Owner_Name__c]"
+                          dataType="wstr"
+                          length="80"
+                          name="Legacy_Owner_Name__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[OwnerId]"
+                          dataType="wstr"
+                          length="18"
+                          name="OwnerId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[RecordTypeId]"
+                          dataType="wstr"
+                          length="18"
+                          name="RecordTypeId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Service_Tier__c]"
+                          dataType="wstr"
+                          length="1300"
+                          name="Service_Tier__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Status]"
+                          dataType="wstr"
+                          length="255"
+                          name="Status" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Subject]"
+                          dataType="wstr"
+                          length="255"
+                          name="Subject" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Subtype__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Subtype__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[SystemModstamp]"
+                          dataType="dbTimeStamp"
+                          name="SystemModstamp" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[TaskSubtype]"
+                          dataType="wstr"
+                          length="50"
+                          name="TaskSubtype" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Type]"
+                          dataType="wstr"
+                          length="255"
+                          name="Type" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[Type__c]"
+                          dataType="wstr"
+                          length="255"
+                          name="Type__c" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[WhatId]"
+                          dataType="wstr"
+                          length="18"
+                          name="WhatId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input].ExternalColumns[WhoId]"
+                          dataType="wstr"
+                          length="18"
+                          name="WhoId" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Data Flow Task\sf_tasks.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Data Flow Task\sf_tasks.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Data Flow Task\sf_tasks.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Data Flow Task\sf_tasks.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Data Flow Task.Paths[Primary Output (Salesforce)]"
+                  endId="Package\Sequence Container\Data Flow Task\sf_tasks.Inputs[OLE DB Destination Input]"
+                  name="Primary Output (Salesforce)"
+                  startId="Package\Sequence Container\Data Flow Task\Salesforce Source.Outputs[Primary Output (Salesforce)]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{1B999D06-5E70-45C9-A151-B055E942AF48}"
+          DTS:From="Package\Sequence Container\Clear Data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Sequence Container\Data Flow Task" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -884,7 +1854,7 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="130.666666666667,42.6666666666667"
           Id="Package\Delete\Clear Data"
@@ -921,7 +1891,44 @@
           PanelSize="410,121.333333333334"
           Size="410,164"
           Id="Package\Delete"
-          TopLeft="309.99999538064,189.526319356836" />
+          TopLeft="177.499997355044,48.5789482827987" />
+        <NodeLayout
+          Size="130.666666666667,42.6666666666667"
+          Id="Package\Sequence Container\Clear Data"
+          TopLeft="36.2499969266355,33.5614110169759" />
+        <NodeLayout
+          Size="153.333333333334,42.6666666666667"
+          Id="Package\Sequence Container\Data Flow Task"
+          TopLeft="213.749994281678,34.9298320953647" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="166.916663593302,55.5789548895036">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="46.8333306883762,0"
+              Start="0,0"
+              End="39.3333306883762,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="39.3333306883762,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="442.666666666667,204"
+          Size="442.666666666667,246.666666666667"
+          Id="Package\Sequence Container"
+          TopLeft="169.999997466803,322.947374499736" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -965,7 +1972,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1023,7 +2032,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -1047,6 +2058,57 @@
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166.666666666667,42.6666666666667"
+          Id="Package\Sequence Container\Data Flow Task\Salesforce Source"
+          TopLeft="128.124998090789,144.368423770009" />
+        <NodeLayout
+          Size="118.666666666667,42.6666666666667"
+          Id="Package\Sequence Container\Data Flow Task\sf_tasks"
+          TopLeft="426.874993639067,148.473687005175" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Data Flow Task.Paths[Primary Output (Salesforce)]"
+          TopLeft="294.791664757455,167.754388720925">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="132.083328881612,0"
+              Start="0,0"
+              End="124.583328881612,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="124.583328881612,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Data Flow Task\sf_tasks">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
